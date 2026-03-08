@@ -162,7 +162,7 @@ class Task(ft.Column):
         self.update()
        
     def save_clicked(self, e):
-        new_name = (self.edit.name.value or "").strip()
+        new_name = (self.edit_name.value or "").strip()
         if new_name:
             self.display_task.label = new_name
         self.display_view.visible = True
@@ -211,6 +211,14 @@ class TodoApp(ft.Column):
         
         self.tasks = ft.Column(spacing=10)
         
+        example_task = Task(
+            task_name="Ejemplo: Terminar la tarea de informática 🚀",
+            on_task_delete=self.task_delete,
+            on_task_changed=self.refresh_counter
+        )
+
+        self.tasks.controls.append(example_task)
+        
         header = ft.Container(
             padding=ft.Padding.all(18),
             bgcolor=self.SURFACE,
@@ -223,8 +231,8 @@ class TodoApp(ft.Column):
                     ft.Column(
                         spacing=2,
                         controls=[
-                            ft.Text("To_Do App", size=20, weight=ft.FontWeight.BOLD, color=self.TEXT),
-                            ft.Text("UI limpia con Containers e Iconos", size=12, color=self.MUTED),
+                            ft.Text("My Task Manager", size=20, weight=ft.FontWeight.BOLD, color=self.TEXT),
+                            ft.Text("Organiza tus tareas fácilmente", size=12, color=self.MUTED),
                         ],
                     ),
                     ft.Container(
@@ -234,7 +242,7 @@ class TodoApp(ft.Column):
                         border_radius=14,
                         border=ft.Border.all(1, self.BORDER),
                         alignment=ft.Alignment(0, 0),
-                        content=ft.Icon(ft.Icons.CHECK_CIRCLE_ROUNDED, color=self.ACCENT, size=24),
+                        content=ft.Icon(ft.Icons.LIST_ALT_ROUNDED, color=self.ACCENT, size=24),
                     ),
                 ],
             ),
@@ -311,7 +319,7 @@ def main(page: ft.Page):
     page.title = "To-Do App"
     page.bgcolor = "#0B1220"
     page.theme_mode = ft.ThemeMode.DARK
-    page.themer = ft.Theme(color_scheme_seed="#38BDF8")
+    page.theme = ft.Theme(color_scheme_seed="#22C55E")
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
     page.scroll = ft.ScrollMode.AUTO
     
